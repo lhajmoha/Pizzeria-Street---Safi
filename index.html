@@ -725,8 +725,7 @@
                 },
 
                 submitOrderViaWhatsApp() {
-                    // رابط مجموعتك على الواتساب المباشر
-                    let groupUrl = "https://chat.whatsapp.com/KDJnRkby7TKDpKO0POWabn?s=cl&p=i&mlu=4&ilr=4";
+                    let waNumber = "212664581166"; // الرقم المطلوب لاستقبال الطلبات مباشرة
 
                     let msg = `*طلب جديد - Pizzeria Street Safi 🍕*%0A`;
                     msg += `*الزبون:* ${this.customer.name}%0A`;
@@ -753,14 +752,7 @@
                         status: 'قيد التحضير'
                     });
 
-                    // نسخ الطلب تلقائياً لحافظة الهاتف/الحاسوب لكي يسهل لصقه فوراً في المجموعة
-                    if (navigator.clipboard && navigator.clipboard.writeText) {
-                        let plainMsg = decodeURIComponent(msg.replace(/%0A/g, '\n').replace(/\*/g, ''));
-                        navigator.clipboard.writeText(plainMsg);
-                    }
-
-                    // فتح رابط مجموعة الواتساب مباشرة
-                    window.open(groupUrl, '_blank');
+                    window.open(`https://wa.me/${waNumber}?text=${msg}`, '_blank');
                     this.showCheckoutModal = false;
                     this.cart = [];
                 }
