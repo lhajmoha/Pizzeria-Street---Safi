@@ -725,7 +725,7 @@
                 },
 
                 submitOrderViaWhatsApp() {
-                    let waNumber = "212664581166"; // الرقم المطلوب لاستقبال الطلبات مباشرة
+                    let waNumber = "212664581166"; // رقم الهاتف المباشر لاستقبال الطلبات
 
                     let msg = `*طلب جديد - Pizzeria Street Safi 🍕*%0A`;
                     msg += `*الزبون:* ${this.customer.name}%0A`;
@@ -744,6 +744,9 @@
                     msg += `%0A*التوصيل بأسفي:* ${this.deliveryFee} DH`;
                     msg += `%0A*المبلغ الإجمالي:* ${this.finalTotalPrice} DH`;
 
+                    // استخدام الرابط المباشر للمراسلة الفورية wa.me دون أي صفحة وسيطة
+                    let directUrl = `https://wa.me/${waNumber}?text=${msg}`;
+
                     this.orders.push({
                         id: 'ORD-' + Math.floor(1000 + Math.random() * 9000),
                         customer: { ...this.customer },
@@ -752,7 +755,7 @@
                         status: 'قيد التحضير'
                     });
 
-                    window.open(`https://wa.me/${waNumber}?text=${msg}`, '_blank');
+                    window.location.href = directUrl;
                     this.showCheckoutModal = false;
                     this.cart = [];
                 }
