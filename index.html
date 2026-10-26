@@ -67,14 +67,14 @@
 </head>
 <body x-data="appData()" :class="darkMode ? 'dark bg-gray-900 text-gray-100' : 'bg-gray-50 text-gray-800'" class="min-h-screen flex flex-col transition-colors duration-300">
 
-    <!-- 1. الهيدر (Header) مع اللوجو في الجانب الأيسر العلوي -->
+    <!-- 1. الهيدر (Header) مع اللوجو الصحيح (logo.jpeg) -->
     <header class="sticky top-0 z-40 backdrop-blur-md bg-white/90 dark:bg-gray-900/90 border-b border-gray-200 dark:border-gray-800 transition-colors shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-20">
                 <!-- الشعار واسم المحل (الجانب الأيمن) -->
                 <div class="flex items-center gap-3 cursor-pointer" @click="activeCategory = 'all'">
-                    <div class="w-12 h-12 rounded-full overflow-hidden border-2 border-brand-500 shadow-lg shadow-brand-500/30 transform hover:scale-105 transition-transform bg-black flex items-center justify-center">
-                        <img src="logo.png.jpeg" onerror="this.onerror=null; this.src='logo.png';" alt="Pizzeria Street Logo" class="w-full h-full object-cover">
+                    <div class="w-12 h-12 rounded-full overflow-hidden border-2 border-brand-500 shadow-lg shadow-brand-500/30 transform hover:scale-105 transition-transform bg-gray-100 flex items-center justify-center">
+                        <img src="logo.jpeg" onerror="this.onerror=null; this.src='logo.png.jpeg';" alt="Pizzeria Street Logo" class="w-full h-full object-cover">
                     </div>
                     <div>
                         <h1 class="text-xl sm:text-2xl font-black tracking-wide bg-gradient-to-r from-brand-600 via-amber-500 to-red-600 bg-clip-text text-transparent">
@@ -86,7 +86,7 @@
                     </div>
                 </div>
 
-                <!-- أزرار الإجراءات + اللوجو المدمج كأفاتار بالجهة اليسرى علوياً -->
+                <!-- أزرار الإجراءات + اللوجو المدمج كأفاتار بالجهة اليسرى -->
                 <div class="flex items-center gap-2 sm:gap-4">
                     <!-- زر تبديل الوضع الداكن/الفاتح -->
                     <button @click="toggleDarkMode()" 
@@ -116,7 +116,7 @@
 
                     <!-- اللوجو العلوي الأيسر كأفاتار بروفايل مميز -->
                     <div class="hidden md:flex items-center pl-2 border-r border-gray-200 dark:border-gray-800 pr-2">
-                        <img src="logo.jpeg" onerror="this.onerror=null; this.src='logo.jpeg';" alt="Logo Avatar" class="w-10 h-10 rounded-full border-2 border-amber-500 shadow-md object-cover hover:rotate-12 transition-transform">
+                        <img src="logo.jpeg" onerror="this.onerror=null; this.src='logo.png.jpeg';" alt="Logo Avatar" class="w-10 h-10 rounded-full border-2 border-amber-500 shadow-md object-cover hover:rotate-12 transition-transform">
                     </div>
                 </div>
             </div>
