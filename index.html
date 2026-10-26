@@ -429,7 +429,7 @@
         </div>
     </div>
 
-    <!-- 8. نافذة تسجيل دخول الأدمن (Admin Login Modal) -->
+    <!-- 8. نافذة تسجيل دخول الأدمن (Admin Login Modal بدون كتابة في الخلفية) -->
     <div x-show="showAdminLoginModal" 
          x-transition.opacity 
          class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto"
@@ -443,7 +443,8 @@
 
             <form @submit.prevent="verifyAdminPassword()" class="space-y-4">
                 <div>
-                    <input type="password" x-model="adminPasswordInput" required placeholder="كلمة المرور (افتراضي: Pizzeria Street8080)" class="w-full p-3 text-sm text-center tracking-widest border border-gray-200 dark:border-gray-700 rounded-xl bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 focus:outline-none">
+                    <!-- تم حذف الـ placeholder تماماً لكي تبقى الخانة خالية -->
+                    <input type="password" x-model="adminPasswordInput" required class="w-full p-3 text-sm text-center tracking-widest border border-gray-200 dark:border-gray-700 rounded-xl bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 focus:outline-none">
                 </div>
                 <template x-if="adminLoginError">
                     <p class="text-xs text-red-500 font-bold">كلمة المرور غير صحيحة، حاول مجدداً!</p>
@@ -541,7 +542,7 @@
                 showAdminModal: false,
                 adminPasswordInput: '',
                 adminLoginError: false,
-                correctAdminPassword: '1234', // 🔑 كلمة المرور الخاصة بالأدمن (يمكنك تغييرها هنا)
+                correctAdminPassword: 'Pizzeria Street8080', // 🔑 كلمة المرور الجديدة
                 selectedProduct: null,
                 selectedSize: null,
                 selectedSupplements: [],
@@ -746,7 +747,7 @@
                     this.orders.push({
                         id: 'ORD-' + Math.floor(1000 + Math.random() * 9000),
                         customer: { ...this.customer },
-                        items: [...cart],
+                        items: [...this.cart],
                         total: this.finalTotalPrice,
                         status: 'قيد التحضير'
                     });
