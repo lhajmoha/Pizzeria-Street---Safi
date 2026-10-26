@@ -725,7 +725,9 @@
                 },
 
                 submitOrderViaWhatsApp() {
-                    let waNumber = "212664581166"; // 📱 رقم الواتساب الجديد الخاص بك
+                    let waNumber = "212664581166"; // الرقم المخصص لاستقبال تفاصيل الطلب
+                    let groupLink = "https://chat.whatsapp.com/KDJnRkby7TKDpKO0POWabn?s=cl&p=i&mlu=4&ilr=4"; // رابط مجموعتك
+
                     let msg = `*طلب جديد - Pizzeria Street Safi 🍕*%0A`;
                     msg += `*الزبون:* ${this.customer.name}%0A`;
                     msg += `*الهاتف:* ${this.customer.phone}%0A`;
@@ -741,7 +743,8 @@
 
                     msg += `%0A*مجموع الوجبات:* ${this.subtotalPrice} DH`;
                     msg += `%0A*التوصيل بأسفي:* ${this.deliveryFee} DH`;
-                    msg += `%0A*المبلغ الإجمالي:* ${this.finalTotalPrice} DH`;
+                    msg += `%0A*المبلغ الإجمالي:* ${this.finalTotalPrice} DH%0A%0A`;
+                    msg += `🔗 رابط مجموعة الواتساب الخاصة بالطلبات:%0A${groupLink}`;
 
                     this.orders.push({
                         id: 'ORD-' + Math.floor(1000 + Math.random() * 9000),
