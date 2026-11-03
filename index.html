@@ -28,7 +28,7 @@
             }
         }
     </script>
-    <!-- Google Fonts: Cairo & Tajawal -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
@@ -37,37 +37,19 @@
     <!-- Alpine.js -->
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <style>
-        body {
-            font-family: 'Cairo', 'Tajawal', sans-serif;
-        }
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #f1f1f1;
-        }
-        .dark ::-webkit-scrollbar-track {
-            background: #1f2937;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #ea580c;
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #c2410c;
-        }
-        .no-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
-        .no-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
+        body { font-family: 'Cairo', 'Tajawal', sans-serif; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        .dark ::-webkit-scrollbar-track { background: #1f2937; }
+        ::-webkit-scrollbar-thumb { background: #ea580c; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #c2410c; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 </head>
 <body x-data="appData()" :class="darkMode ? 'dark bg-gray-900 text-gray-100' : 'bg-gray-50 text-gray-800'" class="min-h-screen flex flex-col transition-colors duration-300">
 
-    <!-- 1. الهيدر (Header) -->
+    <!-- Header -->
     <header class="sticky top-0 z-40 backdrop-blur-md bg-white/90 dark:bg-gray-900/90 border-b border-gray-200 dark:border-gray-800 transition-colors shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-20">
@@ -106,7 +88,7 @@
         </div>
     </header>
 
-    <!-- 2. البانر الرئيسي (Hero Banner) -->
+    <!-- Banner -->
     <section class="relative bg-gray-900 text-white overflow-hidden min-h-[380px] sm:min-h-[460px] flex items-center">
         <div class="absolute inset-0 z-0">
             <img src="banner.jpg" onerror="this.src='https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=1600&auto=format&fit=crop';" alt="Pizzeria Street Banner" class="w-full h-full object-cover object-center transform scale-105 hover:scale-100 transition-transform duration-1000">
@@ -122,7 +104,7 @@
                     أبَنّ وألَذّ بيتزا فـ <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-brand-500">أسفي</span> بين يديك!
                 </h2>
                 <p class="text-gray-300 text-sm sm:text-base font-medium mb-6 leading-relaxed">
-                    مرحباً بكم في Pizzeria Street. المذاق الإيطالي الأصيل منذ 2021. عجينة طازجة، إضافات فاخرة، وأثمنة مناسبة للجميع.
+                    مرحباً بكم في Pizzeria Street. اختر الحجم الذي يناسبك (Petit, Moyen, Grand) واستمتع بالمذاق الإيطالي الأصيل.
                 </p>
                 <div class="flex flex-wrap gap-4 justify-center sm:justify-start">
                     <a href="#menu" class="px-6 py-3.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-bold shadow-lg shadow-brand-600/30 transition-all flex items-center gap-2">
@@ -136,11 +118,11 @@
         </div>
     </section>
 
-    <!-- 3. التبويبات والتصنيفات (Category Tabs) -->
+    <!-- Main Content -->
     <main id="menu" class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
         <div class="flex items-center justify-between mb-6">
             <h3 class="text-2xl font-black text-gray-900 dark:text-white flex items-center gap-2">
-                <i class="fa-solid fa-fire text-brand-600"></i> القائمة الجديدة (Menu)
+                <i class="fa-solid fa-fire text-brand-600"></i> قائمة الطعام (Menu)
             </h3>
         </div>
 
@@ -165,7 +147,7 @@
             </button>
         </div>
 
-        <!-- 4. شبكة المنتوجات (Products Grid) -->
+        <!-- Products Grid -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mt-6">
             <template x-for="product in filteredProducts" :key="product.id">
                 <div class="bg-white dark:bg-gray-800 rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-700 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col group">
@@ -182,11 +164,11 @@
                         
                         <div class="flex items-center justify-between pt-3 border-t border-gray-100 dark:border-gray-700/60">
                             <div>
-                                <span class="text-xs text-gray-400 dark:text-gray-500 block">ابتداءً من</span>
-                                <span class="text-xl font-black text-brand-600 dark:text-brand-500" x-text="product.price + ' DH'"></span>
+                                <span class="text-xs text-gray-400 dark:text-gray-500 block" x-text="product.sizes ? 'ابتداءً من' : 'الثمن'"></span>
+                                <span class="text-xl font-black text-brand-600 dark:text-brand-500" x-text="(product.sizes ? product.sizes[0].price : product.price) + ' DH'"></span>
                             </div>
                             <button @click="openCustomizeModal(product)" class="px-4 py-2.5 rounded-xl bg-brand-50 dark:bg-gray-700 text-brand-600 dark:text-amber-400 font-bold text-sm hover:bg-brand-600 hover:text-white transition-all flex items-center gap-2">
-                                <i class="fa-solid fa-sliders"></i> طلب / تخصيص
+                                <i class="fa-solid fa-sliders"></i> <span x-text="product.sizes ? 'اختر الحجم' : 'طلب'"></span>
                             </button>
                         </div>
                     </div>
@@ -195,7 +177,7 @@
         </div>
     </main>
 
-    <!-- 5. نافذة التخصيص (Customize Modal) -->
+    <!-- Modal التخصيص واختيار الحجم -->
     <div x-show="showCustomizeModal" x-transition.opacity class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto" style="display: none;">
         <div @click.away="showCustomizeModal = false" class="bg-white dark:bg-gray-800 w-full max-w-lg rounded-3xl shadow-2xl overflow-hidden border border-gray-100 dark:border-gray-700 my-8">
             <template x-if="selectedProduct">
@@ -213,6 +195,23 @@
                             <p class="text-xs text-gray-500 dark:text-gray-400 mt-1" x-text="selectedProduct.description"></p>
                         </div>
 
+                        <!-- اختيار الحجم (Petit, Moyen, Grand) للبيتزا -->
+                        <template x-if="selectedProduct.sizes && selectedProduct.sizes.length > 0">
+                            <div>
+                                <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">اختر الحجم (Taille):</label>
+                                <div class="grid grid-cols-3 gap-2">
+                                    <template x-for="size in selectedProduct.sizes" :key="size.name">
+                                        <button @click="selectedSize = size" 
+                                                :class="selectedSize && selectedSize.name === size.name ? 'border-brand-600 bg-brand-50 dark:bg-brand-900/30 text-brand-600 dark:text-amber-400 font-bold' : 'border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300'"
+                                                class="p-3 border-2 rounded-xl text-center transition-all">
+                                            <div class="text-xs font-bold" x-text="size.name"></div>
+                                            <div class="text-sm font-black mt-1" x-text="size.price + ' DH'"></div>
+                                        </button>
+                                    </template>
+                                </div>
+                            </div>
+                        </template>
+
                         <!-- الكمية والزر -->
                         <div class="flex items-center justify-between pt-4 border-t border-gray-100 dark:border-gray-700">
                             <div class="flex items-center gap-3 bg-gray-100 dark:bg-gray-700 rounded-xl p-1">
@@ -221,7 +220,7 @@
                                 <button @click="quantity++" class="w-8 h-8 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 rounded-lg font-bold flex items-center justify-center shadow-sm">+</button>
                             </div>
 
-                            <button @click="addToCart()" class="px-6 py-3 bg-brand-600 hover:bg-brand-700 text-white font-bold rounded-xl shadow-lg shadow-brand-600/35 transition-all flex items-center gap-2">
+                            <button @click="addToCart()" class="px-6 py-3 bg-brand-600 hover:bg-brand-700 text-white font-bold rounded-xl shadow-lg transition-all flex items-center gap-2">
                                 <i class="fa-solid fa-cart-plus"></i> إضافة للسلة (<span x-text="calculatedModalPrice + ' DH'"></span>)
                             </button>
                         </div>
@@ -231,7 +230,7 @@
         </div>
     </div>
 
-    <!-- 6. سلة الطلبات (Cart Slide-over) -->
+    <!-- السلة Slide-over -->
     <div x-show="isCartOpen" class="relative z-50" style="display: none;">
         <div x-show="isCartOpen" x-transition.opacity class="fixed inset-0 bg-black/60 backdrop-blur-sm" @click="isCartOpen = false"></div>
 
@@ -252,7 +251,6 @@
                         <div class="text-center py-12 text-gray-400">
                             <i class="fa-solid fa-cart-flatbed text-5xl mb-3 text-gray-300 dark:text-gray-600"></i>
                             <p class="font-bold text-base">السلة فارغة حالياً</p>
-                            <p class="text-xs mt-1">اختر وجباتك من القائمة وأضفها للسلة</p>
                         </div>
                     </template>
 
@@ -261,6 +259,7 @@
                             <div class="flex items-start justify-between">
                                 <div>
                                     <h4 class="font-bold text-gray-900 dark:text-white text-sm" x-text="item.name"></h4>
+                                    <span x-show="item.size" class="text-xs font-bold text-brand-600" x-text="'الحجم: ' + item.size"></span>
                                 </div>
                                 <button @click="removeFromCart(index)" class="text-red-500 hover:text-red-700 text-xs">
                                     <i class="fa-solid fa-trash"></i>
@@ -301,7 +300,7 @@
         </div>
     </div>
 
-    <!-- 7. نموذج الطلب والتوصيل (Checkout Modal) -->
+    <!-- نموذج التوصيل -->
     <div x-show="showCheckoutModal" x-transition.opacity class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto" style="display: none;">
         <div @click.away="showCheckoutModal = false" class="bg-white dark:bg-gray-800 w-full max-w-md rounded-3xl shadow-2xl p-6 border border-gray-100 dark:border-gray-700">
             <div class="flex items-center justify-between mb-4">
@@ -320,13 +319,13 @@
                 </div>
 
                 <div>
-                    <label class="block text-xs font-bold text-gray-700 dark:text-gray-300 mb-1">رقم الهاتف المغربي *</label>
+                    <label class="block text-xs font-bold text-gray-700 dark:text-gray-300 mb-1">رقم الهاتف *</label>
                     <input type="tel" x-model="customer.phone" required placeholder="06XXXXXXXX" class="w-full p-3 text-sm border border-gray-200 dark:border-gray-700 rounded-xl bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 focus:outline-none">
                 </div>
 
                 <div>
-                    <label class="block text-xs font-bold text-gray-700 dark:text-gray-300 mb-1">العنوان بأسفي (الحي / الشارع) *</label>
-                    <textarea x-model="customer.address" required placeholder="مثال: حكوك، الكورس، جنوب أسفي..." class="w-full p-3 text-sm border border-gray-200 dark:border-gray-700 rounded-xl bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 focus:outline-none h-20"></textarea>
+                    <label class="block text-xs font-bold text-gray-700 dark:text-gray-300 mb-1">العنوان بأسفي *</label>
+                    <textarea x-model="customer.address" required placeholder="الحي / الشارع..." class="w-full p-3 text-sm border border-gray-200 dark:border-gray-700 rounded-xl bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 focus:outline-none h-20"></textarea>
                 </div>
 
                 <div class="p-3 bg-brand-50 dark:bg-brand-950/40 rounded-xl border border-brand-200 dark:border-brand-800 text-xs text-brand-800 dark:text-brand-300 flex items-center justify-between font-bold">
@@ -341,7 +340,7 @@
         </div>
     </div>
 
-    <!-- 8. نافذة تسجيل دخول الأدمن (Admin Login Modal) -->
+    <!-- Admin Login -->
     <div x-show="showAdminLoginModal" x-transition.opacity class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto" style="display: none;">
         <div @click.away="showAdminLoginModal = false" class="bg-white dark:bg-gray-800 w-full max-w-sm rounded-3xl shadow-2xl p-6 border border-gray-100 dark:border-gray-700 text-center">
             <div class="w-14 h-14 bg-brand-100 dark:bg-brand-900/40 text-brand-600 rounded-2xl flex items-center justify-center mx-auto mb-4 text-2xl">
@@ -352,19 +351,17 @@
 
             <form @submit.prevent="verifyAdminPassword()" class="space-y-4">
                 <div>
-                    <input type="password" x-model="adminPasswordInput" required class="w-full p-3 text-sm text-center tracking-widest border border-gray-200 dark:border-gray-700 rounded-xl bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 focus:outline-none">
+                    <input type="password" x-model="adminPasswordInput" required class="w-full p-3 text-sm text-center border border-gray-200 dark:border-gray-700 rounded-xl bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-100 focus:ring-2 focus:ring-brand-500">
                 </div>
                 <template x-if="adminLoginError">
                     <p class="text-xs text-red-500 font-bold">كلمة المرور غير صحيحة!</p>
                 </template>
-                <button type="submit" class="w-full py-3 bg-brand-600 hover:bg-brand-700 text-white font-bold rounded-xl shadow-lg transition-all">
-                    دخول لوحة التحكم
-                </button>
+                <button type="submit" class="w-full py-3 bg-brand-600 hover:bg-brand-700 text-white font-bold rounded-xl shadow-lg">دخول</button>
             </form>
         </div>
     </div>
 
-    <!-- 9. لوحة تحكم المشرف (Admin Panel Modal) -->
+    <!-- Admin Panel -->
     <div x-show="showAdminModal" x-transition.opacity class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto" style="display: none;">
         <div @click.away="showAdminModal = false" class="bg-white dark:bg-gray-800 w-full max-w-2xl rounded-3xl shadow-2xl p-6 border border-gray-100 dark:border-gray-700 max-h-[85vh] flex flex-col">
             <div class="flex items-center justify-between pb-4 border-b border-gray-100 dark:border-gray-700">
@@ -377,14 +374,13 @@
             </div>
 
             <div class="py-4 flex-grow overflow-y-auto space-y-4">
-                <p class="text-xs text-gray-500 dark:text-gray-400">تعديل أسعار الوجبات والمنتوجات الحالية لـ Pizzeria Street:</p>
+                <p class="text-xs text-gray-500 dark:text-gray-400">تعديل أسعار الوجبات الأساسية:</p>
                 <div class="space-y-3">
                     <template x-for="(product, index) in products" :key="product.id">
                         <div class="p-3 bg-gray-50 dark:bg-gray-700/50 rounded-xl border border-gray-200 dark:border-gray-600 flex items-center justify-between gap-3">
                             <img :src="product.image" class="w-12 h-12 rounded-lg object-cover">
                             <div class="flex-grow">
                                 <h4 class="font-bold text-sm text-gray-900 dark:text-white" x-text="product.name"></h4>
-                                <span class="text-xs text-brand-600 font-bold" x-text="product.price + ' DH'"></span>
                             </div>
                             <div class="flex items-center gap-2">
                                 <input type="number" x-model.number="product.price" class="w-20 p-1.5 text-xs text-center border rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white font-bold">
@@ -402,37 +398,41 @@
         </div>
     </div>
 
-    <!-- 10. الفوتر (Footer) -->
+    <!-- Footer -->
     <footer class="bg-gray-900 text-white border-t border-gray-800 mt-auto py-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8 text-center md:text-right">
                 <div>
                     <h4 class="text-lg font-black bg-gradient-to-r from-brand-500 to-amber-400 bg-clip-text text-transparent mb-3">Pizzeria Street</h4>
-                    <p class="text-gray-400 text-xs leading-relaxed">البيتزا الإيطالية الأصيلة والعجينة الطازجة بقلب مدينة أسفي منذ 2021. جودة عالية وأثمنة مناسبة.</p>
+                    <p class="text-gray-400 text-xs leading-relaxed">البيتزا الإيطالية الأصيلة والعجينة الطازجة بقلب مدينة أسفي منذ 2021.</p>
                 </div>
                 <div>
                     <h4 class="text-base font-bold text-white mb-3">ساعات العمل</h4>
-                    <p class="text-gray-400 text-xs">مفتوح طيلة أيام الأسبوع</p>
-                    <p class="text-gray-400 text-xs mt-1">11:00 صباحاً - 11:30 ليلاً</p>
+                    <p class="text-gray-400 text-xs">مفتوح طيلة أيام الأسبوع (11:00 AM - 11:30 PM)</p>
                 </div>
                 <div>
                     <h4 class="text-base font-bold text-white mb-3">اتصل بنا</h4>
-                    <p class="text-gray-400 text-xs flex items-center justify-center md:justify-start gap-2 mb-1">
-                        <i class="fa-solid fa-phone text-brand-500"></i> 0664-581166
-                    </p>
                     <p class="text-gray-400 text-xs flex items-center justify-center md:justify-start gap-2">
-                        <i class="fa-solid fa-location-dot text-brand-500"></i> أسفي، المغرب
+                        <i class="fa-solid fa-phone text-brand-500"></i> 0664-581166
                     </p>
                 </div>
             </div>
             <div class="pt-8 border-t border-gray-800 text-center text-xs text-gray-500">
-                جميع الحقوق المحفوظة &copy; 2026 Pizzeria Street - Safi (Since 2021)
+                جميع الحقوق المحفوظة &copy; 2026 Pizzeria Street - Safi
             </div>
         </div>
     </footer>
 
-    <!-- السكربت البرمجي (JavaScript - Alpine.js Data) بناءً على اللائحة الجديدة -->
+    <!-- JavaScript Data Script -->
     <script>
+        function createPizzaSizes(basePrice) {
+            return [
+                { name: 'Petit (صغيرة)', price: basePrice },
+                { name: 'Moyen (متوسطة)', price: basePrice + 20 },
+                { name: 'Grand (كبيرة)', price: basePrice + 40 }
+            ];
+        }
+
         function appData() {
             return {
                 darkMode: false,
@@ -446,49 +446,44 @@
                 adminLoginError: false,
                 
                 selectedProduct: null,
+                selectedSize: null,
                 quantity: 1,
 
-                customer: {
-                    name: '',
-                    phone: '',
-                    address: ''
-                },
-
+                customer: { name: '', phone: '', address: '' },
                 cart: [],
-                deliveryFee: 10, // مصاريف التوصيل بأسفي
+                deliveryFee: 10,
 
-                // اللائحة الرسمية الجديدة المستخرجة من ملف PDF
                 products: [
-                    // --- PIZZA SAUCE TOMATE ---
-                    { id: 1, category: 'pizza-tomate', categoryName: 'بيتزا صوص طماطم', name: '4 Fromages', description: 'Cheddar, fromage rouge, fromage bleu, Maasdam, fromage Edam', price: 30, image: 'https://images.unsplash.com/photo-1574071318508-1cdbab80d002?q=80&w=600&auto=format&fit=crop' },
-                    { id: 2, category: 'pizza-tomate', categoryName: 'بيتزا صوص طماطم', name: 'Dinde Fumée', description: 'Pomodoro, mozzarella, origan, dinde fumée, fromage Edam', price: 30, image: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=600&auto=format&fit=crop' },
-                    { id: 3, category: 'pizza-tomate', categoryName: 'بيتزا صوص طماطم', name: 'Hot Dog + Salami', description: 'Pomodoro, mozzarella, origan, poivre, hot dog, salami, fromage Edam', price: 30, image: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=600&auto=format&fit=crop' },
-                    { id: 4, category: 'pizza-tomate', categoryName: 'بيتزا صوص طماطم', name: 'Pepperoni', description: 'Pomodoro, mozzarella, origan, pepperoni, fromage Edam', price: 30, image: 'https://images.unsplash.com/photo-1628840042765-356cda07504e?q=80&w=600&auto=format&fit=crop' },
-                    { id: 5, category: 'pizza-tomate', categoryName: 'بيتزا صوص طماطم', name: 'Thon', description: 'Pomodoro, mozzarella, origan, poivre, champignon, thon, fromage Edam', price: 30, image: 'https://images.unsplash.com/photo-1541592106381-b31e9677c0e5?q=80&w=600&auto=format&fit=crop' },
-                    { id: 6, category: 'pizza-tomate', categoryName: 'بيتزا صوص طماطم', name: 'Champignon', description: 'Pomodoro, mozzarella, origan, champignon, Maasdam, fromage Edam', price: 30, image: 'https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?q=80&w=600&auto=format&fit=crop' },
-                    { id: 7, category: 'pizza-tomate', categoryName: 'بيتزا صوص طماطم', name: 'Viande Hachée', description: 'Pomodoro, mozzarella, origan, poivre, oignon, viande hachée, fromage Edam', price: 30, image: 'https://images.unsplash.com/photo-1565299585323-38d6b0865b47?q=80&w=600&auto=format&fit=crop' },
-                    { id: 8, category: 'pizza-tomate', categoryName: 'بيتزا صوص طماطم', name: 'Vegan', description: 'Pomodoro, mozzarella, origan, aubergine, légumes de saison, courgettes, fromage Edam', price: 30, image: 'https://images.unsplash.com/photo-1571407970349-bc81e7e96d47?q=80&w=600&auto=format&fit=crop' },
-                    { id: 9, category: 'pizza-tomate', categoryName: 'بيتزا صوص طماطم', name: 'Poulet', description: 'Pomodoro, mozzarella, origan, poivre, oignon, poulet, fromage Edam', price: 30, image: 'https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=600&auto=format&fit=crop' },
-                    { id: 10, category: 'pizza-tomate', categoryName: 'بيتزا صوص طماطم', name: 'Royal', description: 'Mozzarella, pepperoni, hot dog, dinde fumée, crevettes, boulettes viande hachée, oignon, poivre, fromage Edam', price: 35, image: 'https://images.unsplash.com/photo-1590947132387-155cc02f3212?q=80&w=600&auto=format&fit=crop' },
-                    { id: 11, category: 'pizza-tomate', categoryName: 'بيتزا صوص طماطم', name: 'Street', description: 'Pomodoro, mozzarella, 4 fromages, dinde fumée, fruits de mer, fromage Edam', price: 35, image: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=600&auto=format&fit=crop' },
-                    { id: 12, category: 'pizza-tomate', categoryName: 'بيتزا صوص طماطم', name: 'Moitié-Moitié', description: 'اختيارك من نكهتين مختلفتين', price: 35, image: 'https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=600&auto=format&fit=crop' },
-                    { id: 13, category: 'pizza-tomate', categoryName: 'بيتزا صوص طماطم', name: 'Supreme', description: 'Pomodoro, mozzarella, poivre, oignon, boulettes, champignon, origan, fromage Edam', price: 35, image: 'https://images.unsplash.com/photo-1574071318508-1cdbab80d002?q=80&w=600&auto=format&fit=crop' },
-                    { id: 14, category: 'pizza-tomate', categoryName: 'بيتزا صوص طماطم', name: '4 Seasons', description: 'Pomodoro, mozzarella, poivre, oignon, boulettes viande hachée, fruits de mer, dinde fumée', price: 35, image: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=600&auto=format&fit=crop' },
-                    { id: 15, category: 'pizza-tomate', categoryName: 'بيتزا صوص طماطم', name: '6 Seasons', description: 'Pomodoro, mozzarella, poulet, viande hachée, fruits de mer, dinde fumée, hot dog, salami, fromage Edam', price: 40, image: 'https://images.unsplash.com/photo-1590947132387-155cc02f3212?q=80&w=600&auto=format&fit=crop' },
-                    { id: 16, category: 'pizza-tomate', categoryName: 'بيتزا صوص طماطم', name: 'Fruits de Mer', description: 'Pomodoro, mozzarella, champignon, crevettes, fromage Edam', price: 40, image: 'https://images.unsplash.com/photo-1565299585323-38d6b0865b47?q=80&w=600&auto=format&fit=crop' },
+                    // --- PIZZA SAUCE TOMATE (مع الأحجام Petit, Moyen, Grand) ---
+                    { id: 1, category: 'pizza-tomate', categoryName: 'بيتزا صوص طماطم', name: '4 Fromages', description: 'Cheddar, fromage rouge, fromage bleu, Maasdam, fromage Edam', price: 30, sizes: createPizzaSizes(30), image: 'https://images.unsplash.com/photo-1574071318508-1cdbab80d002?q=80&w=600&auto=format&fit=crop' },
+                    { id: 2, category: 'pizza-tomate', categoryName: 'بيتزا صوص طماطم', name: 'Dinde Fumée', description: 'Pomodoro, mozzarella, origan, dinde fumée, fromage Edam', price: 30, sizes: createPizzaSizes(30), image: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=600&auto=format&fit=crop' },
+                    { id: 3, category: 'pizza-tomate', categoryName: 'بيتزا صوص طماطم', name: 'Hot Dog + Salami', description: 'Pomodoro, mozzarella, origan, poivre, hot dog, salami, fromage Edam', price: 30, sizes: createPizzaSizes(30), image: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=600&auto=format&fit=crop' },
+                    { id: 4, category: 'pizza-tomate', categoryName: 'بيتزا صوص طماطم', name: 'Pepperoni', description: 'Pomodoro, mozzarella, origan, pepperoni, fromage Edam', price: 30, sizes: createPizzaSizes(30), image: 'https://images.unsplash.com/photo-1628840042765-356cda07504e?q=80&w=600&auto=format&fit=crop' },
+                    { id: 5, category: 'pizza-tomate', categoryName: 'بيتزا صوص طماطم', name: 'Thon', description: 'Pomodoro, mozzarella, origan, poivre, champignon, thon, fromage Edam', price: 30, sizes: createPizzaSizes(30), image: 'https://images.unsplash.com/photo-1541592106381-b31e9677c0e5?q=80&w=600&auto=format&fit=crop' },
+                    { id: 6, category: 'pizza-tomate', categoryName: 'بيتزا صوص طماطم', name: 'Champignon', description: 'Pomodoro, mozzarella, origan, champignon, Maasdam, fromage Edam', price: 30, sizes: createPizzaSizes(30), image: 'https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?q=80&w=600&auto=format&fit=crop' },
+                    { id: 7, category: 'pizza-tomate', categoryName: 'بيتزا صوص طماطم', name: 'Viande Hachée', description: 'Pomodoro, mozzarella, origan, poivre, oignon, viande hachée, fromage Edam', price: 30, sizes: createPizzaSizes(30), image: 'https://images.unsplash.com/photo-1565299585323-38d6b0865b47?q=80&w=600&auto=format&fit=crop' },
+                    { id: 8, category: 'pizza-tomate', categoryName: 'بيتزا صوص طماطم', name: 'Vegan', description: 'Pomodoro, mozzarella, origan, aubergine, légumes de saison, courgettes, fromage Edam', price: 30, sizes: createPizzaSizes(30), image: 'https://images.unsplash.com/photo-1571407970349-bc81e7e96d47?q=80&w=600&auto=format&fit=crop' },
+                    { id: 9, category: 'pizza-tomate', categoryName: 'بيتزا صوص طماطم', name: 'Poulet', description: 'Pomodoro, mozzarella, origan, poivre, oignon, poulet, fromage Edam', price: 30, sizes: createPizzaSizes(30), image: 'https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=600&auto=format&fit=crop' },
+                    { id: 10, category: 'pizza-tomate', categoryName: 'بيتزا صوص طماطم', name: 'Royal', description: 'Mozzarella, pepperoni, hot dog, dinde fumée, crevettes, boulettes viande hachée, oignon, poivre, fromage Edam', price: 35, sizes: createPizzaSizes(35), image: 'https://images.unsplash.com/photo-1590947132387-155cc02f3212?q=80&w=600&auto=format&fit=crop' },
+                    { id: 11, category: 'pizza-tomate', categoryName: 'بيتزا صوص طماطم', name: 'Street', description: 'Pomodoro, mozzarella, 4 fromages, dinde fumée, fruits de mer, fromage Edam', price: 35, sizes: createPizzaSizes(35), image: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=600&auto=format&fit=crop' },
+                    { id: 12, category: 'pizza-tomate', categoryName: 'بيتزا صوص طماطم', name: 'Moitié-Moitié', description: 'Votre choix', price: 35, sizes: createPizzaSizes(35), image: 'https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=600&auto=format&fit=crop' },
+                    { id: 13, category: 'pizza-tomate', categoryName: 'بيتزا صوص طماطم', name: 'Supreme', description: 'Pomodoro, mozzarella, poivre, oignon, boulettes, champignon, origan, fromage Edam', price: 35, sizes: createPizzaSizes(35), image: 'https://images.unsplash.com/photo-1574071318508-1cdbab80d002?q=80&w=600&auto=format&fit=crop' },
+                    { id: 14, category: 'pizza-tomate', categoryName: 'بيتزا صوص طماطم', name: '4 Seasons', description: 'Pomodoro, mozzarella, poivre, oignon, boulettes viande hachée, fruits de mer, dinde fumée', price: 35, sizes: createPizzaSizes(35), image: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=600&auto=format&fit=crop' },
+                    { id: 15, category: 'pizza-tomate', categoryName: 'بيتزا صوص طماطم', name: '6 Seasons', description: 'Pomodoro, mozzarella, poulet, viande hachée, fruits de mer, dinde fumée, hot dog, salami, fromage Edam', price: 40, sizes: createPizzaSizes(40), image: 'https://images.unsplash.com/photo-1590947132387-155cc02f3212?q=80&w=600&auto=format&fit=crop' },
+                    { id: 16, category: 'pizza-tomate', categoryName: 'بيتزا صوص طماطم', name: 'Fruits de Mer', description: 'Pomodoro, mozzarella, champignon, crevettes, fromage Edam', price: 40, sizes: createPizzaSizes(40), image: 'https://images.unsplash.com/photo-1565299585323-38d6b0865b47?q=80&w=600&auto=format&fit=crop' },
 
-                    // --- PIZZA SAUCE BLANCHE ---
-                    { id: 17, category: 'pizza-blanche', categoryName: 'بيتزا صوص بيضاء', name: '4 Fromages (Blanche)', description: 'Mozzarella, cheddar, fromage rouge, fromage bleu, Maasdam, fromage Edam', price: 35, image: 'https://images.unsplash.com/photo-1574071318508-1cdbab80d002?q=80&w=600&auto=format&fit=crop' },
-                    { id: 18, category: 'pizza-blanche', categoryName: 'بيتزا صوص بيضاء', name: 'Poulet (Blanche)', description: 'Mozzarella, origan, poivre, poulet, fromage Edam', price: 35, image: 'https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=600&auto=format&fit=crop' },
-                    { id: 19, category: 'pizza-blanche', categoryName: 'بيتزا صوص بيضاء', name: 'Champignon (Blanche)', description: 'Mozzarella, origan, champignons, Maasdam, fromage Edam', price: 35, image: 'https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?q=80&w=600&auto=format&fit=crop' },
-                    { id: 20, category: 'pizza-blanche', categoryName: 'بيتزا صوص بيضاء', name: 'Street (Blanche)', description: 'Mozzarella, 4 fromages, dinde fumée, fruits de mer, fromage Edam', price: 40, image: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=600&auto=format&fit=crop' },
-                    { id: 21, category: 'pizza-blanche', categoryName: 'بيتزا صوص بيضاء', name: 'Vinisia', description: '4 fromages, champignons, pepperoni, fromage Edam', price: 40, image: 'https://images.unsplash.com/photo-1628840042765-356cda07504e?q=80&w=600&auto=format&fit=crop' },
-                    { id: 22, category: 'pizza-blanche', categoryName: 'بيتزا صوص بيضاء', name: 'Supreme (Blanche)', description: 'Mozzarella, poivre, oignon, poulet, champignons, Maasdam', price: 40, image: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=600&auto=format&fit=crop' },
-                    { id: 23, category: 'pizza-blanche', categoryName: 'بيتزا صوص بيضاء', name: 'Fruits de Mer (Blanche)', description: 'Mozzarella, champignons, crevettes, fromage Edam', price: 45, image: 'https://images.unsplash.com/photo-1565299585323-38d6b0865b47?q=80&w=600&auto=format&fit=crop' },
-                    { id: 24, category: 'pizza-blanche', categoryName: 'بيتزا صوص بيضاء', name: 'Vinisia + Viande Hachée', description: 'Mozzarella, poivre, oignon, viande hachée, champignons, Maasdam', price: 50, image: 'https://images.unsplash.com/photo-1565299585323-38d6b0865b47?q=80&w=600&auto=format&fit=crop' },
-                    { id: 25, category: 'pizza-blanche', categoryName: 'بيتزا صوص بيضاء', name: '6 Seasons (Blanche)', description: 'Mozzarella, poulet, viande hachée, fruits de mer, dinde fumée, hot dog, salami, fromage Edam', price: 50, image: 'https://images.unsplash.com/photo-1590947132387-155cc02f3212?q=80&w=600&auto=format&fit=crop' },
-                    { id: 26, category: 'pizza-blanche', categoryName: 'بيتزا صوص بيضاء', name: 'Pepperoni + 4 Fromages', description: '4 fromages, pepperoni, Maasdam, fromage Edam', price: 50, image: 'https://images.unsplash.com/photo-1628840042765-356cda07504e?q=80&w=600&auto=format&fit=crop' },
-                    { id: 27, category: 'pizza-blanche', categoryName: 'بيتزا صوص بيضاء', name: 'Vinisia + Fruits de Mer', description: '4 fromages, champignons, pepperoni, fruits de mer, fromage Edam', price: 55, image: 'https://images.unsplash.com/photo-1565299585323-38d6b0865b47?q=80&w=600&auto=format&fit=crop' },
+                    // --- PIZZA SAUCE BLANCHE (مع الأحجام Petit, Moyen, Grand) ---
+                    { id: 17, category: 'pizza-blanche', categoryName: 'بيتزا صوص بيضاء', name: '4 Fromages (Blanche)', description: 'Mozzarella, cheddar, fromage rouge, fromage bleu, Maasdam, fromage Edam', price: 35, sizes: createPizzaSizes(35), image: 'https://images.unsplash.com/photo-1574071318508-1cdbab80d002?q=80&w=600&auto=format&fit=crop' },
+                    { id: 18, category: 'pizza-blanche', categoryName: 'بيتزا صوص بيضاء', name: 'Poulet (Blanche)', description: 'Mozzarella, origan, poivre, poulet, fromage Edam', price: 35, sizes: createPizzaSizes(35), image: 'https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=600&auto=format&fit=crop' },
+                    { id: 19, category: 'pizza-blanche', categoryName: 'بيتزا صوص بيضاء', name: 'Champignon (Blanche)', description: 'Mozzarella, origan, champignons, Maasdam, fromage Edam', price: 35, sizes: createPizzaSizes(35), image: 'https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?q=80&w=600&auto=format&fit=crop' },
+                    { id: 20, category: 'pizza-blanche', categoryName: 'بيتزا صوص بيضاء', name: 'Street (Blanche)', description: 'Mozzarella, 4 fromages, dinde fumée, fruits de mer, fromage Edam', price: 40, sizes: createPizzaSizes(40), image: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=600&auto=format&fit=crop' },
+                    { id: 21, category: 'pizza-blanche', categoryName: 'بيتزا صوص بيضاء', name: 'Vinisia', description: '4 fromages, champignons, pepperoni, fromage Edam', price: 40, sizes: createPizzaSizes(40), image: 'https://images.unsplash.com/photo-1628840042765-356cda07504e?q=80&w=600&auto=format&fit=crop' },
+                    { id: 22, category: 'pizza-blanche', categoryName: 'بيتزا صوص بيضاء', name: 'Supreme (Blanche)', description: 'Mozzarella, poivre, oignon, poulet, champignons, Maasdam', price: 40, sizes: createPizzaSizes(40), image: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=600&auto=format&fit=crop' },
+                    { id: 23, category: 'pizza-blanche', categoryName: 'بيتزا صوص بيضاء', name: 'Fruits de Mer (Blanche)', description: 'Mozzarella, champignons, crevettes, fromage Edam', price: 45, sizes: createPizzaSizes(45), image: 'https://images.unsplash.com/photo-1565299585323-38d6b0865b47?q=80&w=600&auto=format&fit=crop' },
+                    { id: 24, category: 'pizza-blanche', categoryName: 'بيتزا صوص بيضاء', name: 'Vinisia + Viande Hachée', description: 'Mozzarella, poivre, oignon, viande hachée, champignons, Maasdam', price: 50, sizes: createPizzaSizes(50), image: 'https://images.unsplash.com/photo-1565299585323-38d6b0865b47?q=80&w=600&auto=format&fit=crop' },
+                    { id: 25, category: 'pizza-blanche', categoryName: 'بيتزا صوص بيضاء', name: '6 Seasons (Blanche)', description: 'Mozzarella, poulet, viande hachée, fruits de mer, dinde fumée, hot dog, salami, fromage Edam', price: 50, sizes: createPizzaSizes(50), image: 'https://images.unsplash.com/photo-1590947132387-155cc02f3212?q=80&w=600&auto=format&fit=crop' },
+                    { id: 26, category: 'pizza-blanche', categoryName: 'بيتزا صوص بيضاء', name: 'Pepperoni + 4 Fromages', description: '4 fromages, pepperoni, Maasdam, fromage Edam', price: 50, sizes: createPizzaSizes(50), image: 'https://images.unsplash.com/photo-1628840042765-356cda07504e?q=80&w=600&auto=format&fit=crop' },
+                    { id: 27, category: 'pizza-blanche', categoryName: 'بيتزا صوص بيضاء', name: 'Vinisia + Fruits de Mer', description: '4 fromages, champignons, pepperoni, fruits de mer, fromage Edam', price: 55, sizes: createPizzaSizes(55), image: 'https://images.unsplash.com/photo-1565299585323-38d6b0865b47?q=80&w=600&auto=format&fit=crop' },
 
                     // --- SANDWICHES ---
                     { id: 28, category: 'sandwich', categoryName: 'ساندويتشات', name: 'Thon Spécial', description: 'Thon, laitue, tomate, cacher, dinde fumée, mayonnaise, fromage rouge et Maasdam', price: 17, image: 'https://images.unsplash.com/photo-1528735602780-2552fd46c7af?q=80&w=600&auto=format&fit=crop' },
@@ -497,7 +492,7 @@
                     { id: 31, category: 'sandwich', categoryName: 'ساندويتشات', name: 'Mix', description: 'Poulet, viande hachée, laitue, tomate, cacher, dinde fumée, mayonnaise, fromage rouge et Maasdam', price: 25, image: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=600&auto=format&fit=crop' },
                     { id: 32, category: 'sandwich', categoryName: 'ساندويتشات', name: 'Street', description: 'Poulet, viande hachée, saucisses, laitue, tomate, cacher, dinde fumée, mayonnaise, fromage rouge, Maasdam', price: 30, image: 'https://images.unsplash.com/photo-1528735602780-2552fd46c7af?q=80&w=600&auto=format&fit=crop' },
 
-                    // --- JUS (عصائر) ---
+                    // --- JUS ---
                     { id: 33, category: 'juice', categoryName: 'عصائر', name: 'Mahalabia', description: 'مهلبية تقليدية منعشة', price: 12, image: 'https://images.unsplash.com/photo-1541658016709-82535e94bc69?q=80&w=600&auto=format&fit=crop' },
                     { id: 34, category: 'juice', categoryName: 'عصائر', name: 'Orange', description: 'عصير برتقال طبيعي 100%', price: 15, image: 'https://images.unsplash.com/photo-1613478223719-2ab802602423?q=80&w=600&auto=format&fit=crop' },
                     { id: 35, category: 'juice', categoryName: 'عصائر', name: 'Avocat', description: 'عصير أفوكادو غني وطازج', price: 15, image: 'https://images.unsplash.com/photo-1556881286-fc6915169721?q=80&w=600&auto=format&fit=crop' },
@@ -507,10 +502,10 @@
                     { id: 39, category: 'juice', categoryName: 'عصائر', name: 'Avocat Sec', description: 'أفوكادو بالمكسرات والفواكه الجافة', price: 20, image: 'https://images.unsplash.com/photo-1556881286-fc6915169721?q=80&w=600&auto=format&fit=crop' },
                     { id: 40, category: 'juice', categoryName: 'عصائر', name: 'Mangue + Ananas', description: 'مزيج المانجو والأناناس', price: 25, image: 'https://images.unsplash.com/photo-1540420773420-3366772f4999?q=80&w=600&auto=format&fit=crop' },
 
-                    // --- BOISSONS (مشروبات) ---
+                    // --- BOISSONS ---
                     { id: 41, category: 'drink', categoryName: 'مشروبات', name: 'Eau (ماء)', description: 'مياه معدنية طبيعية', price: 4, image: 'https://images.unsplash.com/photo-1548839140-29a749e1cf4d?q=80&w=600&auto=format&fit=crop' },
                     { id: 42, category: 'drink', categoryName: 'مشروبات', name: 'Soda (مونادا)', description: 'مشروب غازي بارد', price: 6, image: 'https://images.unsplash.com/photo-1622483767028-3f66f32aef97?q=80&w=600&auto=format&fit=crop' },
-                    { id: 43, category: 'drink', categoryName: 'مشروبات', name: 'Oulmès Tropical', description: 'مياه غازية منعشة بنكهة استوائية', price: 10, image: 'https://images.unsplash.com/photo-1551024709-8f23befc6f87?q=80&w=600&auto=format&fit=crop' }
+                    { id: 43, category: 'drink', categoryName: 'مشروبات', name: 'Oulmès Tropical', description: 'مياه غازية بنكهة استوائية', price: 10, image: 'https://images.unsplash.com/photo-1551024709-8f23befc6f87?q=80&w=600&auto=format&fit=crop' }
                 ],
 
                 get filteredProducts() {
@@ -520,20 +515,25 @@
 
                 openCustomizeModal(product) {
                     this.selectedProduct = product;
+                    this.selectedSize = product.sizes && product.sizes.length > 0 ? product.sizes[0] : null;
                     this.quantity = 1;
                     this.showCustomizeModal = true;
                 },
 
                 get calculatedModalPrice() {
                     if (!this.selectedProduct) return 0;
-                    return this.selectedProduct.price * this.quantity;
+                    let currentPrice = this.selectedSize ? this.selectedSize.price : this.selectedProduct.price;
+                    return currentPrice * this.quantity;
                 },
 
                 addToCart() {
                     if (!this.selectedProduct) return;
+                    let itemPrice = this.selectedSize ? this.selectedSize.price : this.selectedProduct.price;
+
                     this.cart.push({
                         name: this.selectedProduct.name,
-                        price: this.selectedProduct.price,
+                        size: this.selectedSize ? this.selectedSize.name : null,
+                        price: itemPrice,
                         quantity: this.quantity
                     });
 
@@ -585,7 +585,13 @@
                 },
 
                 saveAdminChanges() {
-                    alert('تم حفظ التغييرات وتحديث قائمة الأسعار بنجاح!');
+                    // إمكانية تحديث الأحجام تلقائياً عند تغيير الثمن الأساسي
+                    this.products.forEach(p => {
+                        if (p.sizes) {
+                            p.sizes = createPizzaSizes(p.price);
+                        }
+                    });
+                    alert('تم حفظ التغييرات وتحديث قائمة الأسعار والأحجام بنجاح!');
                     this.showAdminModal = false;
                 },
 
@@ -597,7 +603,8 @@
                     text += `🛒 *تفاصيل الطلب:*%0A`;
 
                     this.cart.forEach((item, i) => {
-                        text += `${i+1}. ${item.name} (${item.quantity}x) - ${item.price * item.quantity} DH%0A`;
+                        let sizeText = item.size ? ` (${item.size})` : '';
+                        text += `${i+1}. ${item.name}${sizeText} (${item.quantity}x) - ${item.price * item.quantity} DH%0A`;
                     });
 
                     text += `%0A-------------------%0A`;
